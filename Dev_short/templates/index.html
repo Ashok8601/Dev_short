@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hamburger Menu</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+  .title{
+  display:flex;
+  }
+  .home h5 a{
+  text-decoration:none;
+  color:black;
+  }
+  .short h5 a{
+  text-decoration:none;
+  color:black;
+  }
+  .subscription h5 a{
+  text-decoration:none;
+  color:black;
+  }
+  .profile h5 a{
+  text-decoration:none;
+  color:black;
+  }
+  </style>
+</head>
+<body>
+<div class="container">
+  <form action="/" method="POST">
+    <div class="nav">
+      <div class="logo">
+        <h3><img src="{{ url_for('static', filename='Logo.png') }}" alt="Logo">Matsya </h3>
+      </div>
+      <input type="search" placeholder="Search in Dev" name="search" id="search-bar" class="search-bar">
+      <div class="icon-container">
+        <img src="{{ url_for('static', filename='search-icon.png') }}" alt="search icon" id="search-icon" onclick="toggleSearch()">
+        <img src="{{ url_for('static', filename='bell.png') }}" alt="Bell Icon" class="bell" id="bell-icon">
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="menu-icon">
+  <img src="{{ url_for('static', filename='hamburger-icon.png') }}" alt="Menu" class="menu-btn" onclick="toggleMenu()">
+  <button>All</button>
+  <button>Favorites</button>
+  <button>Comedy</button>
+  <button>Movie</button>
+  <button>Education</button>
+</div>
+
+<ul class="menu" id="menu">
+  <h3><img src="{{ url_for('static', filename='Logo.png') }}" alt="Logo" class="menu-logo">Matsya</h3>
+  <li><a href="{{ url_for('setting') }}">Setting</a></li>
+<li><a href="{{ url_for('edit_profile') }}">Profile</a></li>
+<li><a href="{{ url_for('playlist') }}">Your playlist</a></li>
+<li><a href="{{ url_for('music') }}">Mymusic</a></li>
+<li><a href="{{ url_for('trending') }}">Trending</a></li>
+<li><a href="{{ url_for('history') }}">History</a></li>
+<li><a href="{{ url_for('help') }}">Help And Support</a></li>
+<li><a href="{{ url_for('menu_item_8') }}">Menu Item 8</a></li>
+<li><a href="{{ url_for('menu_item_9') }}">Menu Item 9</a></li>
+<li><a href="{{ url_for('menu_item_10') }}">Menu Item 10</a></li>
+<li><a href="{{ url_for('menu_item_11') }}">Menu Item 11</a></li>
+<li><a href="{{ url_for('menu_item_12') }}">Menu Item 12</a></li>
+</ul>
+
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+ <div class="container">
+    <h1>Uploaded Videos</h1>
+<div>
+  <ul>
+    {% for video in videos %}
+      <li>
+        <div class="video-thumbnail">
+          <video width="320" height="240" controls>
+             <source src="{{ url_for('uploads_file', filename=video[4]) }}" type="video/mp4"> <!-- File Path -->
+            Your browser does not support the video tag.
+          </video>
+          <div class="title">
+            <p>{{ video[0] }}</p> 
+            <h2>{{ video[1] }}</h2>              
+          </div>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+<footer id="footer">
+  <!---<div class="bottom"-->
+    <div class="home">
+     <h5><a href="{{url_for('home')}}">
+    <img src="{{ url_for('static', filename='home.png') }}" alt="home">Home</a></h5>
+    </div>
+    <div class="short">
+      <h5>  <a href="{{url_for('play_short')}}"><img src="{{url_for('static',filename='shorts.png')}}" alt="short.html">Shorts</a></h5>
+    </div>
+    <div class="upload" onclick="toggleUploadMenu()">
+  <h5>
+    <img src="{{url_for('static', filename='upload.png' )}}" alt="upload">Upload
+  </h5>
+</div>
+    <!-- Popup Overlay -->
+    <div id="popup-overlay" style="display: none;" class="popup-overlay">
+      <div class="popup-content">
+        <h4>Select an Upload Option</h4>
+        <ul>
+          <li><a href="{{url_for('upload_video_form')}}">Upload Video</a></li>
+        <!-- Upload Short Video Link -->
+<li><a href="{{url_for('upload_short')}}" >Upload Short Video</a></li>
+          <li><a href="#">Live Stream</a></li>
+          <li><a href="#">Create Post</a></li>
+        </ul>
+        <button onclick="closePopup()">Close</button>
+      </div>
+    </div>
+
+    <div class="subscription">
+      <h5><img src="{{ url_for('static', filename='subscription.png') }}" alt="subscription.html">Subscription</h5>
+    </div>
+    <div class="profile">
+      <h5><img src="{{ url_for('static', filename='profile.png') }}" alt="profile"> <a href="{{ url_for('complete_profile') }}">Profile</a></h5>
+    </div>
+  </div>
+</footer>
+
+<style>
+  /* Hide footer when keyboard is open */
+  footer.hidden {
+    display: none;
+  }
+</style>
+<script src= "{{url_for('static',filename='index.js')}}">
+</script>
+</body>
+</html>

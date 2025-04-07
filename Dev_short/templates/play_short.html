@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vertical Overlay Buttons</title>
+  </head>
+  <style>
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f0f0f0;
+  overflow: hidden;
+}
+
+.container {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  width: 100vw;
+}
+
+.video-thumbnail {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  scroll-snap-align: start;
+  position: relative;
+}
+
+video {
+  height: 100%;
+  width: auto;
+  border-radius: 10px;
+}
+
+.button-overlay {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 1; /* Ensures buttons stay above other elements */
+}
+
+.button-overlay button {
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.button-overlay button img {
+  height: 24px;
+  width: 24px;
+}
+
+/* Comment Box Styling */
+.comment-box {
+  position: absolute;
+  top: 0;
+  right: 0px;
+  width: 80%;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  display: none; /* Hidden by default */
+  z-index: 2;
+}
+
+/* Share Options Styling */
+.share-options {
+  position: absolute;
+  top 0;
+  bottom:20px;
+  right: 60px;
+  width: 80%;
+  background: white;
+  color: black;
+  padding: 10px;
+  border-radius: 5px;
+  display: none; /* Hidden by default */
+  z-index: 2;
+}
+
+.follow-container {
+  position: absolute;
+  bottom: 20%;
+  left: 10%;
+  display: flex;
+  align-items: center;
+}
+
+.follow-button {
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+.profile-photo {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.username {
+  color: white;
+  font-size: 16px;
+}
+
+#footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.bottom div {
+  text-align: center;
+}
+
+.bottom h5 {
+  margin: 0;
+}
+
+.upload img,
+.short img,
+.profile img,
+.home img,
+.subscription img {
+  height: 30px;
+  width: 20px;
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <!-- Video Thumbnails -->
+    {% for video in shorts %}
+    <div class="video-thumbnail" data-video-id="{{ video.videoId }}" data-username="{{ video.username }}">
+      <video controls>
+        <source src="{{ url_for('uploads_file', filename=video[5]) }}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+
+      <!-- Overlay Buttons -->
+      <div class="button-overlay">
+        <button type="button" onclick="likeButtonClicked(this)" data-video-id="{{ video.videoId }}">
+          <img src="{{ url_for('static', filename='like.png') }}" alt="Like">
+        </button>
+        <button type="button" onclick="showCommentBox(this)">
+          <img src="{{ url_for('static', filename='comment.png') }}" alt="Comment">
+        </button>
+        <div class="comment-box" style="display: none;">
+          <textarea placeholder="Write a comment..."></textarea>
+          <button onclick="submitComment(this)">Submit</button>
+        </div>
+        <button type="button" onclick="showShareOptions(this)">
+          <img src="{{ url_for('static', filename='share.png') }}" alt="Share">
+        </button>
+        <div class="share-options" style="display: none;">
+          <ul>
+            <li><a href="whatsapp://send?text=Check%20this%20video!">WhatsApp</a></li>
+            <li><a href="sms:?body=Check%20this%20video!">SMS</a></li>
+            <li><a href="mailto:?subject=Check%20this%20video&body=URL">Email</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Follow Section -->
+      <div class="follow-container">
+        <img src="{{ url_for('user_uploads_file', filename=video[21]) }}" alt="Profile Photo" class="profile-photo">
+        <h3 class="username">{{ video.username }}</h3>
+        <button class="follow-button" type="button" onclick="followUser(this)" data-username="{{ video.username }}">Follow</button>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Footer -->
+  <footer id="footer">
+    <!-- Your existing footer content here -->
+  </footer>
+
+  <script>
+    function likeButtonClicked(button) {
+    const img = button.querySelector('img');
+
+    fetch('/like', {
+        method: 'POST',
+        consol.log("video id is",VideoId)
+        body: JSON.stringify({ videoId: button.dataset.videoId }),
+        headers: { 'Content-Type': 'application/json' }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            img.style.filter = img.style.filter ? '' 
+                : 'invert(28%) sepia(85%) saturate(7487%) hue-rotate(359deg) brightness(92%) contrast(104%)';
+        } else {
+            alert(data.error);p
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+    function showCommentBox(button) {
+    let commentBox = button.nextElementSibling; // अगला डिव (comment-box) ढूंढें
+    if (commentBox.style.display === "none") {
+      commentBox.style.display = "block";  // दिखाएँ
+    } else {
+      commentBox.style.display = "none";   // छुपाएँ
+    }
+  }
+
+  function submitComment(button) {
+    let commentBox = button.previousElementSibling; // टेक्स्टएरिया को खोजें
+    let content = commentBox.value.trim();  // कॉमेंट का टेक्स्ट लें
+    let videoId = "123"; // इसे डायनामिक बनाना होगा
+
+    if (!content) {
+      alert("Please write a comment.");
+      return;
+    }
+
+    fetch('/comment', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ video_id: videoId, content: content })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert("Comment added successfully!");
+        commentBox.value = ""; // इनपुट साफ करें
+      } else {
+        alert("Error: " + data.error);
+      }
+    })
+    .catch(error => console.error("Error:", error));
+  }
+    function showShareOptions(button) {
+      const shareOptions = button.nextElementSibling;
+      shareOptions.style.display = shareOptions.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function followUser(button) {
+      const username = button.dataset.username;
+      fetch('/follow', {
+        method: 'POST',
+        body: JSON.stringify({ username: username }),
+        headers: { 'Content-Type': 'application/json' }
+      }).then(response => {
+        if (response.ok) {
+          button.style.display = 'none'; // Hide button after following
+        }
+      });
+    }
+
+    function toggleUploadMenu() {
+      const popup = document.getElementById('popup-overlay');
+      popup.style.display = popup.style.display === 'none' ? 'flex' : 'none';
+    }
+
+    function closePopup() {
+      document.getElementById('popup-overlay').style.display = 'none';
+    }
+  </script>
+</body>
+</html>

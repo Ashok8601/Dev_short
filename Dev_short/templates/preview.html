@@ -1,0 +1,10 @@
+<!-- preview.html -->
+<div class="video-player">
+    <h3>{{ video[1] }}</h3> <!-- Title -->
+    <p>Uploaded by: {{ video[2] }}</p> <!-- Username -->
+    <!-- Video player -->
+    <video controls autoplay>
+        <source src="{{ url_for('static', filename='uploads/' + str(video[0]) + '.mp4') }}" type="video/mp4">
+        Aapka browser is video ko play nahi kar sakta.
+    </video>
+</div>

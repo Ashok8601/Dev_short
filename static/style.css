@@ -1,0 +1,227 @@
+/* Basic styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+.container img{
+  padding: 5px;
+  justify-content: space-between 10px;
+}
+.nav {
+  display: flex;
+  justify-content: space-between; /* Space between left and right */
+  align-items: center; /* Center items vertically */
+}
+.containers{
+  position :relative;
+}
+.nav .logo h3{
+  margin: 5px;
+  display: flex;
+  align-items: center;
+}
+.nav .logo img{
+  height: 30px;
+  width: 40px;
+}
+.nav img {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+}
+
+/* Initially hide the search bar */
+.search-bar {
+  display: none; /* Initially hidden */
+  padding: 5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width:150px;/* Space between search icon and search bar */
+}
+
+/* Show search bar when active */
+.search-bar.active {
+  display: inline-block; /* Show the search bar */
+}
+
+/* Container for the icons */
+.icon-container {
+  display: flex;
+  align-items: center; /* Center icons vertically */
+}
+
+/* Footer styles */
+.home img {
+  height: 30px;
+  width: auto;
+}
+.short img {
+  height: 30px;
+  width: auto;
+}
+.subscription img {
+  height: 30px;
+  width: auto;
+}
+.upload img {
+  height: 30px;
+  width: auto;
+}
+.profile img {
+  height: 30px;
+  width: auto;
+}
+/* Footer styles */
+footer {
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  bottom: 0;
+  height:80px;
+  background-color: white;
+}
+footer .bottom div {
+  text-align: center;
+  flex: 1;
+}
+.bottom{
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  gap: 17px;
+  margin:20px;
+  text-align: center;
+  display: inline-flex;
+}
+.menu-btn {
+  cursor: pointer;
+  margin: 7px;
+  border-radius: 50px;
+  padding-top:8px;
+}
+.menu {
+  display: none;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  background: white;
+  position: absolute;
+  left: 0;
+  top: 5px;
+  height: 100%;
+  width: 50%;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+.menu li {
+  padding: 10px 20px;
+}
+.menu li:hover {
+  background-color: #e0e0e0;
+}
+/* Show menu when active */
+.menu.active {
+  display: block;
+  transform: translateX(0); /* Slide in from the left */
+}
+/* Overlay to close the menu */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 800;
+}
+.overlay.active {
+  display: block;
+}
+.menu-btn{
+  height:30px;
+}
+.menu-logo{
+  height: 40px;
+  width: 30px;
+}
+.menu-logo h3{
+  display: flex;
+  align-items: center;
+}
+.menu-icon{
+  align-items: center;
+  justify-content: space-between;
+  display: inline-flex;
+  gap: 5px;
+  }
+  /* Popup overlay styles */
+.popup-overlay {
+  display: none; /* Initially hidden */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); /* Dark overlay */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Make sure it sits above other content */
+}
+
+.popup-content {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+/* Popup overlay styles */
+.popup-overlay {
+  display: none; /* Initially hidden */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Popup box styles */
+.popup-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  width: 250px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.popup-content h3 {
+  margin-top: 0;
+}
+
+.popup-content a {
+  display: block;
+  padding: 10px;
+  color: #333;
+  text-decoration: none;
+  border: 1px solid #ccc;
+  margin: 5px 0;
+  border-radius: 4px;
+  list-style: none;
+}
+
+.popup a:hover {
+  background-color: #f0f0f0;
+}
+
+.popup button {
+  margin-top: 15px;
+  padding: 5px 10px;
+  cursor: pointer;
+}

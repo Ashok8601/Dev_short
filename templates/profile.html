@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link rel="stylesheet" href="base.css">
+  <style>
+    .picture{
+      display: flex;
+    }
+    .follower{
+      display: flex;
+      justify-content: space-between;
+    }
+    .section{
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+
+<body>
+<div class="container">
+  <form action="/" method="POST">
+    <div class="nav">
+      <div class="logo">
+        <h3><img src="Logo.png" alt="Logo">Matsya </h3>
+      </div>
+      <input type="search" placeholder="Search in Dev" name="search" id="search-bar" class="search-bar">
+      <div class="icon-container">
+        <img src="search-icon.png" alt="search icon" id="search-icon" onclick="toggleSearch()">
+        <img src="bell.png" alt="Bell Icon" class="bell" id="bell-icon">
+        <img src="setting.png" alt="setting">
+      </div>
+    </div>
+  </form>
+  <div class="picture">
+    <img src="profile_photo.png" alt="">
+    <div>
+    <h3>username</h3>
+    <h4>hello am new on <br>
+      <!--Tab to edit-->
+    matsya pleEse support me guys</h4>
+    </div>
+  </div>
+  <div class="follower ">
+<div>
+    <h1>40</h1>
+    <p>follower</p>
+    </div>
+  <div>
+    <h1>50</h1>
+    <p>post</p>
+  </div>
+  <div>
+    <h1>60</h1>
+    <p>following</p>
+  </div>
+  </div>
+  <div class="section">
+    <h3>saved</h3>
+    <h3>watch later</h3>
+    <h3>download</h3>
+   <h3> subscription </h3>
+  </div>
+  <script>
+    function toggleSearch() {
+      var searchBar = document.getElementById("search-bar");
+      searchBar.classList.toggle("active");
+      searchBar.focus();
+    }
+  </script>
+</body>
+
+</html>
+  
